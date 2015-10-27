@@ -25,7 +25,9 @@ import java.util.Map;
 import jsequtils.file.BufferedReaderMaker;
 
 /**
- * Object holds
+ * Object holds definitions of regions of interest. It can be setup from either
+ * bed files (tables with chr, start, end) or from refGene flat files. In the latter
+ * case, the object can be used to keep track of transcripts as well as genes.
  *
  *
  * @author tkonopka
@@ -60,9 +62,16 @@ class Exp3pAnnotationMap {
     /**
      *
      * @param loadfile
-     * @param filetype
-     * @param numsamples
+     * @param filetype     
      * @param prime3len
+     * 
+     * For REFGENE tables, use this option to look only at 3-prime ends of transcripts
+     * and genes. E.g. set to 1000 to define interest in the last kilobase of 
+     * transcripts.
+     *
+     * @param extendby
+     * 
+     * For bed tables, use this option to widen the intervals slightly.
      *
      * set this when loading REFGENE type input files
      *
@@ -254,6 +263,7 @@ class Exp3pAnnotationMap {
      *
      * Formally returns nothing, but the aIntervals object will be modified.
      *
+     * @param transcript
      * @param aIntervals
      * @param astring
      * @param maxlen
@@ -468,10 +478,25 @@ class Exp3pAnnotationMap {
         return fullannomap.get(chr).getValues(position);
     }
 
+    /**
+     * 
+     * @param name
+     * @return 
+     * 
+     * number of bases associated with Tx called name
+     * 
+     */
     public int getTxLength(String name) {
         return txlength.get(name);
     }
 
+    /**
+     * 
+     * @param name
+     * @return 
+     * 
+     * number of bases associated with Tx called name
+     */
     public int getFullTxLength(String name) {
         return fulltxlength.get(name);
     }

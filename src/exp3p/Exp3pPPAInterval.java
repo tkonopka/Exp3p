@@ -16,7 +16,9 @@
 package exp3p;
 
 /**
- *
+ * holder class for a genomic interval plus annotations. In this program, the
+ * class is used to define a fuzzy interval near a transcript poly-A sites.
+ * 
  * @author tkonopka
  */
 public class Exp3pPPAInterval extends GenomicInterval {

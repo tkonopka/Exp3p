@@ -36,7 +36,9 @@ public class Exp3p {
     }
 
     public static void printHelp() {
-        System.out.println("Exp3p evaluates expression on genes based on alignment counts");
+        System.out.println("Exp3p evaluates expression on genes, transcripts, or regions");
+        System.out.println("using aligned read counts. It can also handle data from RNA-seq");
+        System.out.println("protocols that measure reads only near transcript poly-A tails.");
         System.out.println();
         System.out.println("Usage: java -jar Exp3p.jar TYPE [options]");
         System.out.println();
@@ -44,8 +46,9 @@ public class Exp3p {
         System.out.println("  labelArich    - in bam file, label reads in AT rich regions (for Tfill)");
         System.out.println("  callPPA       - identify pre-poly-A sites");
         System.out.println("  richregions   - find regions rich in one nucleotide (e.g. A-rich regions)");
+        System.out.println("  version       - display program version");
         System.out.println();
-        System.out.println("\nAuthor: Tomasz Konopka (tkonopka@cemm.oeaw.ac.be)\n");
+        System.out.println("\nAuthor: Tomasz Konopka (tkonopka@ludwig.ox.ac.uk)\n");
     }
 
     /**

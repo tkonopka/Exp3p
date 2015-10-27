@@ -26,7 +26,11 @@ import jsequtils.file.OutputStreamMaker;
 import jsequtils.sequence.FastaReader;
 
 /**
- *
+ * RichRegions is one of the utilities of Exp3p. It identifies genomic regions
+ * that are rich in defined nucleotides. It can be used to identify regions
+ * that have, e.g. more than 4 As and more than 5 Ts in a 10-nt stretch.
+ * 
+ * 
  * @author tkonopka
  */
 public class RichRegions implements Runnable {
@@ -51,7 +55,7 @@ public class RichRegions implements Runnable {
         System.out.println("  --minG <int>        - minimum count of G");
         System.out.println("  --output <String>   - file where output will be stored (default is stdout)");
         System.out.println();
-        System.out.println("\nAuthor: Tomasz Konopka (tkonopka@cemm.oeaw.ac.be)\n");
+        System.out.println("\nAuthor: Tomasz Konopka (tkonopka@ludwig.ox.ac.uk)\n");
     }
 
     private boolean parseRichRegionsParameters(String[] args) {

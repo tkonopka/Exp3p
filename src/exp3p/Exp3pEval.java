@@ -67,7 +67,7 @@ public class Exp3pEval implements Runnable {
     private boolean isok = false;
 
     public void printEvalHelp() {
-        System.out.println("Exp3p eval: evaluates expression on genes based on alignment counts");
+        System.out.println("Exp3p eval: evaluates expression on genes, transcripts, or regions using alignment counts");
         System.out.println();
         System.out.println("Usage: java -jar Exp3p.jar eval [options]");
         System.out.println();
@@ -87,7 +87,7 @@ public class Exp3pEval implements Runnable {
         System.out.println("  --outputgene <String> - output file will contain gene-wise expression values");
         System.out.println("  --tfillnorm <double>  - normalization for tfill protocol [default -1 for FPKM normalization]");
         System.out.println();
-        System.out.println("\nAuthor: Tomasz Konopka (tkonopka@cemm.oeaw.ac.be)\n");
+        System.out.println("\nAuthor: Tomasz Konopka (tkonopka@ludwig.ox.ac.uk)\n");
     }
 
     private boolean parseEvalParameters(String[] args) {
@@ -251,6 +251,17 @@ public class Exp3pEval implements Runnable {
         return true;
     }
 
+    
+    /**
+     * Constructor. Parses command line parameters only. The main computation 
+     * work is performed in run().
+     * 
+     * 
+     * @param args 
+     * 
+     * Command line parameters passed to this tool
+     * 
+     */
     public Exp3pEval(String[] args) {
         if (args == null || args.length == 0) {
             printEvalHelp();
@@ -269,6 +280,11 @@ public class Exp3pEval implements Runnable {
         command = sb.toString();
     }
 
+    /**
+     * Execute the expression counting tool. Assumes the object is properly
+     * initialized. 
+     * 
+     */
     @Override
     public void run() {
         if (!isok) {
@@ -394,9 +410,15 @@ public class Exp3pEval implements Runnable {
      * This is where a bam file is scanned and expression in regions of interest
      * are recorded into the "expinfo" object.
      *
-     * @param infile
-     * @param samplelabel
+     * @param annomap 
+     * object holding regions of interest
+     * @param expmap 
+     * object holding expression estimates
+     * @param infile     
+     * File to process
      * @param sampleindex
+     * index of samples (associated content of File to the expmap object)
+     * 
      */
     private void processOneBam(Exp3pAnnotationMap annomap, Exp3pExpressionMap expmap, File infile, int sampleindex) {
         // set up input/output objects using SAM library
@@ -509,6 +531,9 @@ public class Exp3pEval implements Runnable {
      * the table comes from the object "expinfo" and goes into a stream defined
      * by "output"
      *
+     * @param annomap
+     * @param expmap
+     * 
      * @throws FileNotFoundException
      * @throws IOException
      */
@@ -598,6 +623,9 @@ public class Exp3pEval implements Runnable {
      * the table comes from the object "expinfo" and goes into a stream defined
      * by "output"
      *
+     * @param annomap
+     * @param expmap
+     * 
      * @throws FileNotFoundException
      * @throws IOException
      */
@@ -702,7 +730,7 @@ public class Exp3pEval implements Runnable {
     }
 
     /**
-     * Looks at the first characters fo the strings and returns a consensus
+     * Looks at the first characters of the strings and returns a consensus
      * strand.
      *
      *

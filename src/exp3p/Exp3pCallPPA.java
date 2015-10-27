@@ -42,9 +42,10 @@ import net.sf.samtools.SAMRecord;
 import net.sf.samtools.SAMSequenceDictionary;
 
 /**
- * Utility scans a bam file and calls pre-poly-A sites, i.e. either
- * transcription start sites for RNA-seq or sites before DNA poly-A stretches in
- * DNA-seq.
+ * Exp3pCallPPA is one of the main components of Exp3p. It scans a bam file and 
+ * calls pre-poly-A sites, i.e. either transcription start sites for RNA-seq or 
+ * sites before DNA poly-A stretches in DNA-seq. It looks for pileups of reads
+ * at single locations. 
  *
  *
  * @author tkonopka
@@ -83,7 +84,7 @@ public class Exp3pCallPPA implements Runnable {
         System.out.println("  --output <String>     - file where output will be stored");
         System.out.println("  --readlen <int>       - read length [default " + readlen + "]");
         System.out.println();
-        System.out.println("\nAuthor: Tomasz Konopka (tkonopka@cemm.oeaw.ac.be)\n");
+        System.out.println("\nAuthor: Tomasz Konopka (tkonopka@ludwig.ox.ac.uk)\n");
     }
 
     private boolean parseCallPPAParameters(String[] args) {
@@ -142,9 +143,7 @@ public class Exp3pCallPPA implements Runnable {
                     return false;
                 }
             }
-        }
-
-        // choose strandedness protocol        
+        }        
 
         // check for inputs for alignment/labels
         if (options.has("bam")) {
@@ -206,6 +205,11 @@ public class Exp3pCallPPA implements Runnable {
         return true;
     }
 
+    /**
+     * Constructor. Sets up this object, computation will be performed in run(). 
+     * 
+     * @param args 
+     */
     public Exp3pCallPPA(String[] args) {
         if (args == null || args.length == 0) {
             printCallPPAHelp();
@@ -822,6 +826,9 @@ public class Exp3pCallPPA implements Runnable {
      * Output the calls for pre-poly-A sites
      *
      * @param emap
+     * @param ppaintervals
+     * @param ginfo
+     * 
      * @throws FileNotFoundException
      * @throws IOException
      */

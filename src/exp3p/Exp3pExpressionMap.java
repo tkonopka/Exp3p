@@ -19,7 +19,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- *
+ * Object that holds expression estimates, i.e. associations between samples and
+ * features (regions, genes, transcripts)
+ * 
  * @author tkonopka
  */
 class Exp3pExpressionMap {

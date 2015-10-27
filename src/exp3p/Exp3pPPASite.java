@@ -18,7 +18,8 @@ package exp3p;
 import jsequtils.genome.GenomicPosition;
 
 /**
- * holder class for a genomic position plus annotations 
+ * holder class for a genomic position plus annotations. In this program, the
+ * class is used to define pre-poly-A sites.
  * 
  * @author tkonopka
  */

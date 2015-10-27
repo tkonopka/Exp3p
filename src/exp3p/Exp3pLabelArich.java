@@ -30,8 +30,10 @@ import net.sf.samtools.SAMRecord;
 import net.sf.samtools.SAMRecordIterator;
 
 /**
- * Process a bam file and label reads that are possibly due to capture by A-rich
- * DNA/RNA regions
+ * Exp3pLabelArich is one of the main utilities of Exp3p. It processes a bam file 
+ * and labels reads that are possibly due to capture by A-rich DNA/RNA regions,
+ * i.e. reads whose ends are very close to poly-A or poly-T stretches in the reference
+ * genome.
  *
  * @author tkonopka
  */
@@ -61,7 +63,7 @@ public class Exp3pLabelArich implements Runnable {
         System.out.println("  --mincount <int>      - minimum number of A bases in window [default "+mincount+"]");        
         System.out.println("  --remove <boolean>    - remove A rich reads [default "+remove+"]");        
         System.out.println();
-        System.out.println("\nAuthor: Tomasz Konopka (tkonopka@cemm.oeaw.ac.be)\n");
+        System.out.println("\nAuthor: Tomasz Konopka (tkonopka@ludwig.ox.ac.uk)\n");
     }
 
     private boolean parseParameters(String[] args) {
