@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Tomasz Konopka.
+ * Copyright 2013-2017 Tomasz Konopka.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,10 +29,10 @@ package exp3p;
  */
 public class Exp3p {
 
-    final static String version = "0.1.0";
+    final static String VERSION = "0.1.1";
 
     public static String getVersion() {
-        return version;
+        return VERSION;
     }
 
     public static void printHelp() {
@@ -48,7 +48,7 @@ public class Exp3p {
         System.out.println("  richregions   - find regions rich in one nucleotide (e.g. A-rich regions)");
         System.out.println("  version       - display program version");
         System.out.println();
-        System.out.println("\nAuthor: Tomasz Konopka (tkonopka@ludwig.ox.ac.uk)\n");
+        System.out.println("\nAuthor: Tomasz Konopka\n");
     }
 
     /**
@@ -75,7 +75,7 @@ public class Exp3p {
         } else if (args[0].equalsIgnoreCase("callPPA")) {
             new Exp3pCallPPA(newargs).run();        
         } else if (args[0].equalsIgnoreCase("version")) {
-            System.out.println("Eval3p v" + version);
+            System.out.println("Eval3p v" + VERSION);
         } else if (args[0].equalsIgnoreCase("richregions")) {
             new RichRegions(newargs).run();        
         } else if (args[0].equalsIgnoreCase("help")) {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Tomasz Konopka.
+ * Copyright 2013-2017 Tomasz Konopka.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -646,8 +646,9 @@ public class Exp3pEval implements Runnable {
         sb.append("Region.id\tStrand");
         int numsamples = bamfiles.size();
         for (int i = 0; i < numsamples; i++) {
-            String nowlabel = labels.get(i);
-            sb.append("\t").append(nowlabel).append(".EPM").
+            String nowlabel = labels.get(i);            
+            sb.append("\t").append(nowlabel).append(".count").
+                    append("\t").append(nowlabel).append(".EPM").
                     append("\t").append(nowlabel).append(".EPM.low").
                     append("\t").append(nowlabel).append(".EPM.high");
         }
@@ -655,7 +656,7 @@ public class Exp3pEval implements Runnable {
         os.write(sb.toString().getBytes());
 
         // output information on all the transcripts
-        DecimalFormat scoreformat1 = new DecimalFormat("0.000");
+        DecimalFormat scoreformat1 = new DecimalFormat("0.0");
         DecimalFormat scoreformat2 = new DecimalFormat("0.###E0");
         sb = new StringBuilder();
         for (int i = 0; i < annomap.genenames.size(); i++) {
@@ -665,8 +666,7 @@ public class Exp3pEval implements Runnable {
             // write the first few columns in output
             sb.append(nowgene).
                     append("\t").append(getConsensusStrand(alltxs));
-
-            //System.out.println(nowgene);
+            
             // write a row of information about each sample, each category of information
             for (int j = 0; j < numsamples; j++) {
                 double reads = 0.0;
@@ -679,7 +679,8 @@ public class Exp3pEval implements Runnable {
                 double totSqDevLo = 0.0;
                 double totSqDevHi = 0.0;
                 double totEPM = 0.0;
-
+                double totCount = 0.0;
+                
                 // collect readcounts on all transcripts
                 for (int z = 0; z < alltxs.length; z++) {
                     String nowname = alltxs[z];
@@ -703,10 +704,11 @@ public class Exp3pEval implements Runnable {
                     totEPM += eest[z];
                     totSqDevLo += Math.pow(eestLo[z] - eest[z], 2);
                     totSqDevHi += Math.pow(eestHi[z] - eest[z], 2);
+                    totCount += reads;
                 }
 
-
-                sb.append("\t").append(scoreformat2.format(totEPM)).
+                sb.append("\t").append(scoreformat1.format(totCount)).
+                        append("\t").append(scoreformat2.format(totEPM)).
                         append("\t").append(scoreformat2.format(Math.max(0, totEPM - Math.sqrt(totSqDevLo)))).
                         append("\t").append(scoreformat2.format(totEPM + Math.sqrt(totSqDevHi)));
             }
